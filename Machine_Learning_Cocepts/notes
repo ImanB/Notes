@@ -1,0 +1,71 @@
+\begin{thebibliography}{10}
+
+\bibitem{bennett1999semi}
+Kristin Bennett, Ayhan Demiriz, et~al.
+\newblock Semi-supervised support vector machines.
+\newblock {\em Advances in Neural Information processing systems}, pages
+  368--374, 1999.
+
+\bibitem{chiang2014prediction}
+Kai-Yang Chiang, Cho-Jui Hsieh, Nagarajan Natarajan, Inderjit~S Dhillon, and
+  Ambuj Tewari.
+\newblock Prediction and clustering in signed networks: a local to global
+  perspective.
+\newblock {\em The Journal of Machine Learning Research}, 15(1):1177--1213,
+  2014.
+
+\bibitem{forsati2014matrix}
+Rana Forsati, Mehrdad Mahdavi, Mehrnoush Shamsfard, and Mohamed Sarwat.
+\newblock Matrix factorization with explicit trust and distrust side
+  information for improved social recommendation.
+\newblock {\em ACM Transactions on Information Systems (TOIS)}, 32(4):17, 2014.
+
+\bibitem{hai2014identifying}
+Zhen Hai, Kuiyu Chang, Jung-Jae Kim, and Christopher~C Yang.
+\newblock Identifying features in opinion mining via intrinsic and extrinsic
+  domain relevance.
+\newblock {\em IEEE Trans. Knowl. Data Eng.}, 26(3):623--634, 2014.
+
+\bibitem{hsieh2014pu}
+Cho-Jui Hsieh, Nagarajan Natarajan, and Inderjit~S Dhillon.
+\newblock Pu learning for matrix completion.
+\newblock {\em arXiv preprint arXiv:1411.6081}, 2014.
+
+\bibitem{joachims1998text}
+Thorsten Joachims.
+\newblock {\em Text categorization with support vector machines: Learning with
+  many relevant features}.
+\newblock Springer, 1998.
+
+\bibitem{kim2011network}
+Myunghwan Kim and Jure Leskovec.
+\newblock The network completion problem: Inferring missing nodes and edges in
+  networks.
+\newblock In {\em SDM}, pages 47--58. SIAM, 2011.
+
+\bibitem{li2011incorporating}
+Fangtao Li, Nathan Liu, Hongwei Jin, Kai Zhao, Qiang Yang, and Xiaoyan Zhu.
+\newblock Incorporating reviewer and product information for review rating
+  prediction.
+\newblock In {\em IJCAI}, volume~11, pages 1820--1825, 2011.
+
+\bibitem{menon2011link}
+Aditya~Krishna Menon and Charles Elkan.
+\newblock Link prediction via matrix factorization.
+\newblock In {\em Machine Learning and Knowledge Discovery in Databases}, pages
+  437--452. Springer, 2011.
+
+\bibitem{qu2010bag}
+Lizhen Qu, Georgiana Ifrim, and Gerhard Weikum.
+\newblock The bag-of-opinions method for review rating prediction from sparse
+  text patterns.
+\newblock In {\em Proceedings of the 23rd International Conference on
+  Computational Linguistics}, pages 913--921. Association for Computational
+  Linguistics, 2010.
+
+\bibitem{tang2014negative}
+Jiliang Tang, Shiyu Chang, Charu Aggarwal, and Huan Liu.
+\newblock Negative link prediction in social media.
+\newblock {\em arXiv preprint arXiv:1412.2723}, 2014.
+
+\end{thebibliography}

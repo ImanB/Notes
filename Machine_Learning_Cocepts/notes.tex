@@ -1,0 +1,342 @@
+\def\final{0}
+
+\documentclass[11pt]{article}
+
+\usepackage{algorithm, algorithmic}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{framed}
+\usepackage{fullpage}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage{kpfonts}
+\definecolor{DarkGreen}{rgb}{0.1,0.5,0.1}
+\definecolor{DarkRed}{rgb}{0.5,0.1,0.1}
+\definecolor{DarkBlue}{rgb}{0.1,0.1,0.5}
+\usepackage{enumitem}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+    unicode=false,				% non-Latin characters in Acrobat¿s bookmarks
+    pdftoolbar=true,				% show Acrobat toolbar?
+    pdfmenubar=true,			% show Acrobat menu?
+    pdffitwindow=false, 		% page fit to window when opened
+    pdftitle={},    					% title
+    pdfauthor={}
+    pdfsubject={},				% subject of the document
+    pdfnewwindow=true,		% links in new window
+    pdfkeywords={},			% list of keywords
+    colorlinks=true,				% false: boxed links; true: colored links
+    linkcolor=DarkBlue,		% color of internal links
+    citecolor=DarkGreen,	% color of links to bibliography
+    filecolor=DarkRed,		% color of file links
+    urlcolor=DarkBlue,		% color of external links
+}
+
+
+\def\doubleline{
+    \linethickness{0.5mm}
+    \vspace{-0.9em}
+    \hspace{\fill}\line(1,0){400}\hspace{\fill}
+
+%    \vspace{-0.95em}
+%    \hspace{\fill}\line(1,0){400}\hspace{\fill}
+
+}
+
+
+
+%General Macros
+
+%mathbb macros
+\newcommand\Z{\mathbb{Z}}
+\newcommand\N{\mathbb{N}}
+\newcommand\R{\mathbb{R}}
+
+%mathcal macros
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bR}{\mathbf{R}}
+\newcommand{\bS}{\mathbf{S}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\bV}{\mathbf{V}}
+
+%basic math macros
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\bits}{\{0,1\}}
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\card}[1]{\left| #1 \right|} 
+\newcommand{\set}[1]{\left\{#1\right\}} 
+\newcommand{\from}{:}
+\newcommand{\negl}{\mathrm{negl}}
+\newcommand{\eps}{\varepsilon}
+
+%probability macros
+\newcommand{\ex}[1]{\mathbb{E}\left[#1\right]}
+\DeclareMathOperator*{\Expectation}{\mathbb{E}}
+\DeclareMathOperator*{\E}{\mathbb{E}}
+\newcommand{\Ex}[2]{\Expectation_{#1}\left[#2\right]}
+\DeclareMathOperator*{\Probability}{\mathrm{Pr}}
+\newcommand{\prob}[1]{\mathrm{Pr}\left[#1\right]}
+\newcommand{\Prob}[2]{\Probability_{#1}\left[#2\right]}
+
+%codebox macros
+\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
+
+%crypto macros
+\newcommand{\cryptoalg}[1]{\mathit{#1}}
+\newcommand{\cryptoadv}[1]{\mathcal{#1}}
+\newcommand{\gen}{\cryptoalg{Gen}}
+\newcommand{\enc}{\cryptoalg{Enc}}
+\newcommand{\dec}{\cryptoalg{Dec}}
+\newcommand{\trace}{\cryptoalg{Trace}}
+\newcommand{\encscheme}{\cryptoalg{Enc}}
+\newcommand{\encgen}{\cryptoalg{\gen}}
+\newcommand{\encenc}{\cryptoalg{\enc}}
+\newcommand{\encdec}{\cryptoalg{\dec}}
+\newcommand{\ttscheme}{\cryptoalg{TT}}
+\newcommand{\ttgen}{\cryptoalg{\ttscheme.\gen}}
+\newcommand{\ttenc}{\cryptoalg{\ttscheme.\enc}}
+\newcommand{\ttdec}{\cryptoalg{\ttscheme.\dec}}
+\newcommand{\tttrace}{\cryptoalg{\ttscheme.\trace}}
+\newcommand{\fpcscheme}{\cryptoalg{FPC}}
+\newcommand{\fpcgen}{\cryptoalg{\fpcscheme.\gen}}
+\newcommand{\fpctrace}{\cryptoalg{\fpcscheme.\trace}}
+\newcommand{\security}{\lambda}
+\newcommand{\error}{\varepsilon}
+\newcommand{\tterror}{\error_{\ttscheme}}
+\newcommand{\encerror}{\error_{\encscheme}}
+\newcommand{\fpcerror}{\error_{\fpcscheme}}
+\newcommand{\pirate}{\cP}
+\newcommand{\oracle}{\cO}
+\newcommand{\cryptogame}[1]{\mathsf{#1}}
+\newcommand{\realgame}{\cryptogame{Attack}}
+\newcommand{\idealgame}{\cryptogame{IdealAttack}}
+\newcommand{\accuracygame}{\cryptogame{Acc}}
+\newcommand{\CPAgame}{\cryptogame{CPAGame}}
+\newcommand{\bnpgame}{\cryptogame{NonPrivacy}}
+\newcommand{\bnpattack}{\cryptogame{PrivacyAttack}}
+\newcommand{\idealbnpattack}{\cryptogame{IdealPrivacyAttack}}
+\newcommand{\encadv}{\cryptoadv{B}}
+\newcommand{\fpcadv}{\cryptoadv{A_{\fpcscheme}}}
+\newcommand{\accadv}{\cryptoadv{A}}
+\newcommand{\bnpadv}{\cryptoadv{A}_{\mathrm{priv}}}
+\newcommand{\consistent}{\mathrm{Con}}
+\newcommand{\sk}{sk}
+\newcommand{\ssk}{\overline{\sk}}
+\newcommand{\keylength}{\ell_{\encscheme}}
+\newcommand{\encoracle}{\cE}
+\newcommand{\ct}{c}
+
+%other macros
+\newcommand{\pop}{p}
+\newcommand{\sample}{n}
+\newcommand{\length}{\ell_{\fpcscheme}}
+\newcommand{\dimension}{d}
+\newcommand{\dist}{\cD}
+\newcommand{\queries}{k}
+\newcommand{\query}{q}
+
+%theorem macros
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\date{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's notes
+\def\ShowAuthNotes{0}
+\ifnum\ShowAuthNotes=1
+\newcommand{\authnote}[2]{{ \footnotesize \bf{\color{DarkRed}[#1's Note:
+{\color{DarkBlue}#2}]}}}
+\else
+\newcommand{\authnote}[2]{}
+\fi
+
+\newcommand{\Mnote}[1]{{\authnote{Mehrdad} {#1}}}
+\newcommand{\jnote}[1]{{\authnote{Jon} {#1}}}
+
+
+
+\title{Machine Learning Concepts}
+\author{Iman} 
+
+\begin{document}
+\maketitle
+
+
+\vspace{1cm}
+\begin{center}
+	\doubleline
+\end{center}
+
+\tableofcontents~\footnote{The sections colored with red indicate the problems for which a rough idea has been developed.}
+
+\vspace{1cm}
+\begin{center}
+	\doubleline
+\end{center}
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SVM}
+Support Vector Machine: Consider an input space $\mathbb{X}$ that is a subset of $\mathbb{R}^N$ with $N\geq 1$ and the output or target space $\mathbf{y}$
+ 
+ 
+ 
+ \[ \min_{\bU, \bV} \frac{1}{\Omega_{\bR}} \sum_{(i, j) \in \Omega_{\bR}}^{}{\left(\bR_{i,j}-\bU_{i:*}^{\top}\bV_{*,j}\right)^2} + \lambda_{\bU} \|\bU\|_{\text{F}}^2+ \lambda_{\bV} \|\bV\|_{\text{F}}^2 + \textcolor{blue}{\frac{1}{|\cT|}\sum_{t \in \cT}^{}{\ell(\bU_{t_i,*}, \bU_{t_j,*},\bU_{t_k,*} })}\]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\textcolor{DarkRed}{Separable Case}}
+
+
+This problem investigates the network completion problem initiated in~\cite{kim2011network}. In network completion problem, it is assumed that only a part of the network (e.g., a complete subgraph of the social graph) is observed and we would like to infer the unobserved part of the network. In this problem, we assume that besides the observed subgraph, side information about the nodes such as the pairwise similarity between them is also provided. In contrast to the original network completion problem where the standard methods such as matrix completion is inapplicable due the non-uniform sampling of observed links,  the goal here is to show that by effectively exploiting the side information, it is possible to accurately  predict the unobserved links.  
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Structured Sign Prediction in Social Networks}
+
+This problem is related to Problem~\ref{problem:smf}. The main disadvantage of exiting link prediction algorithms (e.g., see~\cite{menon2011link} for a recent survey) is that they mostly reduce the problem to a binary classification over  edges. As a result, the structure of the network is somehow ignored in prediction. On the other hand, there are many theories in social network analysis that try to model the structural properties of networks such as balance  and status theories-- to name a few. 
+
+Therefore, an interesting problem is  to find efficient algorithms that are capable of exploiting the structural properties of social network in link prediction. One solution to this problem is to directly define the objective of prediction in terms of the structural properties of network instead of individual edges.  In~\cite{chiang2014prediction} an attempt has been made towards this problem, but the proposed algorithm is not efficient and practically useless. 
+
+\subsubsection{\textcolor{DarkRed}{Social Constrained Transductive Classification}}
+
+Here the goal is to extend the transductive SVM (S$^3$VM) algorithm~\cite{bennett1999semi,joachims1998text} to sign prediction problem with node features. The existing methods for link prediction with node features (and similarly edge features or latent features) try to reduce the problem to a binary classification problem which ignores the structure of social network~~\cite{menon2011link}.  
+
+One idea to exploit the structural properties of social network, and in particular balance theory, is to reduce the problem to transductive classification problem and impose constraint on the unknown labels based on the structural properties of the networks.  More specifically, the goal of learning is to transact labels  from known links  to  unknown links by simultaneously  maximizing the margin of classification and consistency of links extracted from the social graph over all triads. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Negative Link Prediction with One Bit Matrix Completion}
+
+ Although distrust relations/negative links in social networks have been shown to be a rich source of information and in some cases as valuable as trust relations, a major impediment in their effective use is that most social networks  do not enable users to specify them explicitly (e.g., Facebook and Twitter do not enable users to explicitly specify negative links)~\cite{chiang2014prediction}.  Therefore, it is natural to explore whether one can predict negative links automatically from the commonly available social network data and other sources of information about  users (for more details please check~\cite{tang2014negative}). 
+
+There is a close connection between this problem and PU learning for matrix completion~\cite{hsieh2014pu}, which makes it an interesting problem to be investigated from both theoretical and empirical point of view. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Social Recommender System}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\textcolor{DarkRed}{PushTrust}}
+
+Let assume there are $n$ users $\mathcal{U} = \{u_1, u_2, \cdots, u_n\}$ and a set of items $\mathcal{I} = \{i_1, i_2, \cdots, i_m\}$. The input is the rating matrix $\bR \in \mathbb{R}^{n \times m}$ and the social (trust/distrust) network $\bS \in \{-1, +1\}^{n\times n}$ between users.
+
+The overarching goal of social recommender systems  is to factorize rating matrix $\bR \in \mathbb{R}^{n \times m}$ into the latent features $\bR \approx \bU \bV^{\top}$ using the social network between users. The only work that is able to simultaneously exploits both trust and distrust relations in factorization is~\cite{forsati2014matrix} which proposed a ranking idea over latent features but suffers from following  main issues:
+
+\begin{enumerate}
+\item It optimizes over all the triplets which makes it computationally unattractive due to $O(n^3)$ number constraints in the optimization.
+\item For each triplet $(i, j, k)$ it ignores the relations between $j$th and $k$th nodes.
+
+\item The absence of a link must be considered as a \textit{unknown} relation meaning that it can be potentially trust or distrust link. Therefore, in learning the latent features this fact must be considered.
+\end{enumerate}
+
+The focus of this problem would be on resolving these issues and in particular the computational cost.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Recommendation Using Multiple Sources}
+
+The contemporary recommender systems only try to utilize the rating information available in the user-item matrix $\bR \in \mathbb{R}^{n \times m}$. But in recent application other sources of information have been emerged that can potentially benefit the recommendation such as:
+
+\begin{enumerate}
+\item The feature vector for the users
+\item The feature vector of items
+\item The features of rating, location of rating, time, and etc.
+\item The social  network among users
+\item The reviews (text data) attached to ratings
+\item $\cdots$ 
+\end{enumerate}
+
+The main equation here is how to effectively integrate multiple sources of information to boos the accuracy of existing methods.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\textcolor{DarkRed}{Matrix Completion with Side information for Cold-start Recommendation}}
+
+Unfortunately, the existing methods are not capable of handing cold-start users or items. In particular, the matrix completion or factorization methods are not applicable as an entire row or column is unavailable for cold-start users (items) in the rating matrix. 
+
+The question is whether or not if it is possible to exploit other sources of information (similarity between users/items) to apply factorization or matrix completion methods. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Implicit Distrust for Better  Recommendation}
+
+In many social networks such as Facebook users are not allowed to make distrust relations. But, the absence of a link between two users, depending on the context of users, might have two different meaning: they know each other but distrusted, or they do not know each other. 
+
+The question is that how  we could extract predict distrust relations and utilize them in the recommendation and see if it  helpful at all. To achieve this goal, an interesting intermediate question is as follows. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Implicit Subjective Trust Extraction and Utilization}
+
+In most of social networks, in particular Epinions, the trust/distrust relations between users is subjective. This means a user might trust another users for a specific category of items while this is not reflected in the relation.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From Reviews to Ratings}
+
+The problem here  is to predict a user's numeric rating in a product review from the text of the review. Please see~\cite{qu2010bag,li2011incorporating,hai2014identifying}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Social Regularized Matrix Factorization}\label{problem:smf}
+
+There are different theories such as social balance theory and status theory  that aim at modeling the social behaviour of users in social networks. In some applications such as sign prediction, these theories also used as a metric to assess the performance of prediction algorithms. 
+
+
+The goal of this project would be a deep understanding of these theories and devising novel algorithms that directly takes these theories into the optimization. In particular, let $\cT = \{(i, j, k) \in [n]\times[n]\times[n]\} $
+ be the set of triangles in the social graphs.  The goal of Social Matrix Factorization (SMF) is solving the following optimization problem:
+ 
+ \[ \min_{\bU, \bV} \frac{1}{\Omega_{\bR}} \sum_{(i, j) \in \Omega_{\bR}}^{}{\left(\bR_{i,j}-\bU_{i:*}^{\top}\bV_{*,j}\right)^2} + \lambda_{\bU} \|\bU\|_{\text{F}}^2+ \lambda_{\bV} \|\bV\|_{\text{F}}^2 + \textcolor{blue}{\frac{1}{|\cT|}\sum_{t \in \cT}^{}{\ell(\bU_{t_i,*}, \bU_{t_j,*},\bU_{t_k,*} })}\]
+ 
+The only challenge is above optimization problem is to find an appropriate mapping from the space of latent features to sign of edges to penalize the violation of social theories accordingly.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\bibliographystyle{plain}
+\bibliography{refrences}
+
+\end{document}
